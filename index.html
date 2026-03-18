@@ -47,19 +47,17 @@ Loading JP Auto Spa...
 </div>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const member = urlParams.get("member") || "";
-
-let baseURL = "https://script.google.com/macros/s/AKfycbybBS3BgwKso_nCBWDeYkg1ywCKeGEz80gkpBBnAE-Rb4OzANlKS1VZ7AyxhDQSXG5q/exec";
-
-if(member){
-  baseURL += "?member=" + encodeURIComponent(member);
-}
+const params = window.location.search;
 
 const iframe = document.createElement("iframe");
-iframe.src = baseURL;
-iframe.onload = () => {
-  document.getElementById("loader").style.display = "none";
+iframe.src = "https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec" + params;
+
+iframe.style.border = "none";
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+
+iframe.onload = function(){
+  document.getElementById('loader').style.display='none';
 };
 
 document.body.appendChild(iframe);
