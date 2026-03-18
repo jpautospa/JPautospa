@@ -53,7 +53,7 @@ const member = urlParams.get("member") || "";
 let baseURL = "https://script.google.com/macros/s/AKfycbybBS3BgwKso_nCBWDeYkg1ywCKeGEz80gkpBBnAE-Rb4OzANlKS1VZ7AyxhDQSXG5q/exec";
 
 if(member){
-  baseURL += "?member=" + member;
+  baseURL += "?member=" + encodeURIComponent(member);
 }
 
 const iframe = document.createElement("iframe");
