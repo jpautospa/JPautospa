@@ -46,10 +46,24 @@ letter-spacing:1px;
 Loading JP Auto Spa...
 </div>
 
-<iframe 
-src="https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec"
-onload="document.getElementById('loader').style.display='none';">
-</iframe>
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const member = urlParams.get("member") || "";
+
+let baseURL = "https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec";
+
+if(member){
+  baseURL += "?member=" + member;
+}
+
+const iframe = document.createElement("iframe");
+iframe.src = baseURL;
+iframe.onload = () => {
+  document.getElementById("loader").style.display = "none";
+};
+
+document.body.appendChild(iframe);
+</script>
 
 </body>
 </html>
