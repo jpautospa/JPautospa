@@ -1,27 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal PERSAS</title>
+<title>JP Prime Auto Spa</title>
 
 <style>
 html,body{
 margin:0;
 height:100%;
 background:#0f172a;
-font-family:sans-serif;
+overflow:hidden;
 }
+
 iframe{
 border:none;
 width:100%;
 height:100%;
 }
+
+/* optional loading */
+
+.loader{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0f172a;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+z-index:999;
+font-size:14px;
+letter-spacing:1px;
+}
 </style>
 
 </head>
+
 <body>
 
-<iframe src="https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec"></iframe>
+<div class="loader" id="loader">
+Loading JP Auto Spa...
+</div>
+
+<iframe 
+src="https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec"
+onload="document.getElementById('loader').style.display='none';">
+</iframe>
 
 </body>
 </html>
