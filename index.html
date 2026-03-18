@@ -195,7 +195,7 @@ display:block;
 /* Loading */
 
 .loader{
-position:absolute;
+position:fixed;
 top:0;
 left:0;
 width:100%;
@@ -2393,6 +2393,9 @@ fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRg
 
 slotLoading = false;
 
+/* 🔥 TAMBAH NI */
+document.getElementById("loader").style.display="none";
+
 document.querySelectorAll(".timeSlot").forEach(slot=>{
 
 let slotTime = normalizeTime(slot.innerText);
@@ -2407,6 +2410,12 @@ slot.classList.remove("booked");
 
 });
 
+});
+
+.catch(err=>{
+slotLoading = false;
+document.getElementById("loader").style.display="none";
+console.log(err);
 });
 
 },10000);
