@@ -2306,7 +2306,7 @@ window.addEventListener("load",function(){
 
 if(MEMBER_ID){
 
-fetch("URL_WEB_APP_KAU?action=getMember&member="+MEMBER_ID)
+fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec?action=getMember&member="+MEMBER_ID)
 .then(res => res.json())
 .then(loadRepeatCustomer);
 
@@ -2335,7 +2335,7 @@ slot.classList.remove("selected");
 
 document.getElementById("nextStep2").classList.add("disabled");
 
-fetch("URL_WEB_APP_KAU?action=getSlots&tarikh="+tarikh)
+fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec?action=getSlots&tarikh="+tarikh)
 .then(res => res.json())
 .then(booked => {
 
@@ -2380,7 +2380,7 @@ if(slotLoading) return;
 
 slotLoading = true;
 
-fetch("URL_WEB_APP_KAU?action=getSlots&tarikh="+tarikh)
+fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec?action=getSlots&tarikh="+tarikh)
 .then(res => res.json())
 .then(function(booked){
 
