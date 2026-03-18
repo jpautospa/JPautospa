@@ -30,7 +30,7 @@ body{
 font-family:'Segoe UI',Roboto,Arial;
 background:linear-gradient(135deg,var(--c3),var(--c5));
 margin:0;
-height:100vh;
+height:100dvh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -39,7 +39,7 @@ align-items:center;
 .container{
 width:100%;
 max-width:420px;
-height:100vh;
+height:100dvh;
 background:white;
 padding:22px;
 overflow:auto;
@@ -1660,7 +1660,8 @@ Tempah Sekarang
 
 <script>
 
-  const MEMBER_ID = "<?= memberID ?>" || "";
+  const urlParams = new URLSearchParams(window.location.search);
+const MEMBER_ID = urlParams.get("member") || "";
 
   const priceService = {
 "Basic Wash":25,
@@ -1961,37 +1962,34 @@ document.getElementById("loadingText").innerText =
 "Sedang menghantar tempahan ke sistem...";
 
 
-google.script.run
-.withSuccessHandler(function(res){
+fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec", {
+  method: "POST",
+  body: JSON.stringify(bookingData)
+})
+.then(res => res.json())
+.then(res => {
 
 document.getElementById("loader").style.display="none";
 
 if(res.status=="slot_taken"){
-
-alert("Maaf, slot masa ini baru sahaja ditempah oleh pelanggan lain.");
+alert("Slot sudah diambil");
 location.reload();
 return;
-
 }
 
 if(res.status=="success"){
-
 showSuccessPopup(res.bookingID, res.whatsapp);
 
-/* LOCK SLOT TERUS TANPA RELOAD */
-
+/* LOCK SLOT */
 document.querySelectorAll(".timeSlot").forEach(slot=>{
 if(slot.innerText.trim() === bookingData.masa.trim()){
-slot.classList.remove("selected");
 slot.classList.add("booked");
 }
 });
 
-document.getElementById("masa").value = "";
-
 }
-})
-.submitBooking(bookingData);
+
+});
 
 }
 
@@ -2308,9 +2306,9 @@ window.addEventListener("load",function(){
 
 if(MEMBER_ID){
 
-google.script.run
-.withSuccessHandler(loadRepeatCustomer)
-.getMemberData(MEMBER_ID);
+fetch("URL_WEB_APP_KAU?action=getMember&member="+MEMBER_ID)
+.then(res => res.json())
+.then(loadRepeatCustomer);
 
 }
 
@@ -2337,20 +2335,13 @@ slot.classList.remove("selected");
 
 document.getElementById("nextStep2").classList.add("disabled");
 
-google.script.run
-.withSuccessHandler(function(booked){
+fetch("URL_WEB_APP_KAU?action=getSlots&tarikh="+tarikh)
+.then(res => res.json())
+.then(booked => {
 
-  /* 🔥 TAMBAH SINI */
-document.getElementById("loader").style.display="none";
+let bookedSet = new Set(booked.map(b => normalizeTime(b)));
 
-/* 🔥 CONVERT SEKALI JE */
-let bookedSet = new Set(
-booked.map(b => normalizeTime(b))
-);
-
-/* 🔥 LOOP TANPA SOME() */
 document.querySelectorAll(".timeSlot").forEach(slot=>{
-
 let slotTime = normalizeTime(slot.innerText);
 
 if(bookedSet.has(slotTime)){
@@ -2358,11 +2349,9 @@ slot.classList.add("booked");
 }else{
 slot.classList.remove("booked");
 }
-
 });
 
-})
-.getBookedSlots(tarikh);
+});
 
 });
 
@@ -2391,8 +2380,9 @@ if(slotLoading) return;
 
 slotLoading = true;
 
-google.script.run
-.withSuccessHandler(function(booked){
+fetch("URL_WEB_APP_KAU?action=getSlots&tarikh="+tarikh)
+.then(res => res.json())
+.then(function(booked){
 
 slotLoading = false;
 
@@ -2410,8 +2400,7 @@ slot.classList.remove("booked");
 
 });
 
-})
-.getBookedSlots(tarikh);
+});
 
 },10000);
 
