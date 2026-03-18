@@ -2353,8 +2353,6 @@ console.log("Error:", err);
 
 });
 
-});
-
 /* AUTO REFRESH SLOT SETIAP 10 SAAT */
 
 let slotLoading = false;
@@ -2536,6 +2534,10 @@ splash.style.display = "none";
 },3000);
 
 });
+
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
 
 </script>
 
