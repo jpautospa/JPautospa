@@ -1964,6 +1964,9 @@ document.getElementById("loadingText").innerText =
 
 fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec", {
   method: "POST",
+  headers:{
+    "Content-Type":"application/json"
+  },
   body: JSON.stringify(bookingData)
 })
 .then(res => res.json())
@@ -2300,18 +2303,6 @@ return t
 
 }
 
-window.addEventListener("load",function(){
-
-/* LOAD REPEAT CUSTOMER */
-
-if(MEMBER_ID){
-
-fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec?action=getMember&member="+MEMBER_ID)
-.then(res => res.json())
-.then(loadRepeatCustomer);
-
-}
-
 /* EVENT PILIH TARIKH */
 
 document.getElementById("tarikh").addEventListener("change",function(){
@@ -2524,12 +2515,17 @@ document.getElementById("successPopup").style.display="none";
 
 window.addEventListener("load",function(){
 
+/* REPEAT CUSTOMER */
+if(MEMBER_ID){
+fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRgabj0gMK5Z47DFmHhcan5UxA7IdtW54yD2O/exec?action=getMember&member="+MEMBER_ID)
+.then(res => res.json())
+.then(loadRepeatCustomer);
+}
+
+/* SPLASH SCREEN */
 let splash = document.getElementById("welcomeScreen");
 
-/* bagi dia nampak dulu */
 setTimeout(()=>{
-
-/* fade out smooth */
 splash.style.transition = "opacity 1.2s ease";
 splash.style.opacity = "0";
 
@@ -2537,10 +2533,9 @@ setTimeout(()=>{
 splash.style.display = "none";
 },1200);
 
-},3000); // masa display sebelum fade
+},3000);
 
 });
-
 
 </script>
 
