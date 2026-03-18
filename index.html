@@ -2339,6 +2339,8 @@ fetch("https://script.google.com/macros/s/AKfycbxQjMUpIvAxcALjMyUCNJSYqBmFGMUtRg
 .then(res => res.json())
 .then(booked => {
 
+  document.getElementById("loader").style.display="none"; // 🔥 TAMBAH NI
+
 let bookedSet = new Set(booked.map(b => normalizeTime(b)));
 
 document.querySelectorAll(".timeSlot").forEach(slot=>{
@@ -2351,6 +2353,11 @@ slot.classList.remove("booked");
 }
 });
 
+});
+
+.catch(err=>{
+document.getElementById("loader").style.display="none";
+console.log("Error:", err);
 });
 
 });
